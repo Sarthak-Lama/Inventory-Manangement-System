@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inventory Management System</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="login-page" class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#2563eb"/><path d="M10 28V14l10-6 10 6v14l-10 6-10-6z" stroke="#fff" stroke-width="2" fill="none"/><path d="M20 8v24M10 14l10 6 10-6" stroke="#fff" stroke-width="2"/></svg>
+    </div>
+    <h1>InvPro</h1>
+    <p class="login-sub">Inventory Management System</p>
+    <form id="login-form">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="admin" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+      <div id="login-error" class="error-msg hidden"></div>
+      <button type="submit" class="btn-primary full-width">Sign in</button>
+    </form>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="app hidden">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#2563eb"/><path d="M10 28V14l10-6 10 6v14l-10 6-10-6z" stroke="#fff" stroke-width="2" fill="none"/><path d="M20 8v24M10 14l10 6 10-6" stroke="#fff" stroke-width="2"/></svg>
+      <span>InvPro</span>
+    </div>
+    <nav>
+      <button class="nav-item active" data-page="dashboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" data-page="stock">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Stock Items
+      </button>
+      <button class="nav-item" data-page="suppliers">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Suppliers
+      </button>
+      <button class="nav-item" data-page="categories">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        Categories
+      </button>
+      <button class="nav-item" data-page="orders">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Orders
+      </button>
+      <button class="nav-item" data-page="transactions">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+        Transactions
+      </button>
+      <button class="nav-item" data-page="reports">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Reports
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar" id="user-avatar">A</div>
+        <span id="user-name">Admin</span>
+      </div>
+      <button class="logout-btn" id="logout-btn" title="Logout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOAST -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h2>Dashboard</h2>
+      </div>
+      <div class="stat-grid" id="stat-grid">
+        <div class="stat-card"><div class="stat-label">Total Items</div><div class="stat-value" id="stat-items">—</div></div>
+        <div class="stat-card"><div class="stat-label">Stock Value</div><div class="stat-value" id="stat-value">—</div></div>
+        <div class="stat-card stat-warn"><div class="stat-label">Reorder Alerts</div><div class="stat-value" id="stat-alerts">—</div></div>
+        <div class="stat-card stat-danger"><div class="stat-label">Out of Stock</div><div class="stat-value" id="stat-oos">—</div></div>
+      </div>
+      <div class="section-row">
+        <div class="section-card">
+          <div class="section-card-header"><h3>Reorder Alerts</h3></div>
+          <div id="reorder-list" class="alert-list"></div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-header"><h3>Recent Orders</h3></div>
+          <div id="recent-orders-list" class="alert-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOCK ITEMS -->
+    <section id="page-stock" class="page">
+      <div class="page-header">
+        <h2>Stock Items</h2>
+        <button class="btn-primary" id="btn-add-stock">+ Add Item</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="stock-search" placeholder="Search by name or SKU…" />
+      </div>
+      <div class="table-wrap">
+        <table id="stock-table">
+          <thead><tr><th>SKU</th><th>Name</th><th>Category</th><th>Qty</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="stock-body"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="stock-pagination"></div>
+    </section>
+
+    <!-- SUPPLIERS -->
+    <section id="page-suppliers" class="page">
+      <div class="page-header">
+        <h2>Suppliers</h2>
+        <button class="btn-primary" id="btn-add-supplier">+ Add Supplier</button>
+      </div>
+      <div class="table-wrap">
+        <table id="supplier-table">
+          <thead><tr><th>Name</th><th>Contact</th><th>Email</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="supplier-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="page-categories" class="page">
+      <div class="page-header">
+        <h2>Categories</h2>
+        <button class="btn-primary" id="btn-add-category">+ Add Category</button>
+      </div>
+      <div class="table-wrap">
+        <table id="category-table">
+          <thead><tr><th>Name</th><th>Description</th><th>Items</th><th>Actions</th></tr></thead>
+          <tbody id="category-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section id="page-orders" class="page">
+      <div class="page-header">
+        <h2>Orders</h2>
+        <button class="btn-primary" id="btn-add-order">+ New Order</button>
+      </div>
+      <div class="filter-bar">
+        <select id="order-status-filter">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="shipped">Shipped</option>
+          <option value="received">Received</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <select id="order-type-filter">
+          <option value="">All types</option>
+          <option value="purchase">Purchase</option>
+          <option value="sale">Sale</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table id="order-table">
+          <thead><tr><th>Order #</th><th>Type</th><th>Supplier</th><th>Status</th><th>Total</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="order-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TRANSACTIONS -->
+    <section id="page-transactions" class="page">
+      <div class="page-header">
+        <h2>Stock Transactions</h2>
+      </div>
+      <div class="filter-bar">
+        <select id="txn-type-filter">
+          <option value="">All types</option>
+          <option value="in">Stock In</option>
+          <option value="out">Stock Out</option>
+          <option value="adjustment">Adjustment</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table id="txn-table">
+          <thead><tr><th>Item</th><th>SKU</th><th>Type</th><th>Qty Change</th><th>Previous</th><th>New</th><th>Reference</th><th>Date</th></tr></thead>
+          <tbody id="txn-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section id="page-reports" class="page">
+      <div class="page-header"><h2>Reports</h2></div>
+
+      <!-- Filters apply to whichever report is currently open below.
+           Date/threshold fields only show when relevant to that report type. -->
+      <div class="filter-bar" id="report-filter-bar">
+        <select id="report-category">
+          <option value="">All categories</option>
+        </select>
+        <select id="report-supplier">
+          <option value="">All suppliers</option>
+        </select>
+        <input type="date" id="report-start-date" class="report-date-filter" style="display:none" title="Start date"/>
+        <input type="date" id="report-end-date" class="report-date-filter" style="display:none" title="End date"/>
+        <input type="number" id="report-threshold" placeholder="Threshold" min="0" style="display:none;width:110px" title="Low stock threshold"/>
+        <button class="btn-secondary btn-sm" id="btn-export-report" style="display:none">⬇ Export CSV</button>
+      </div>
+
+      <div class="report-grid">
+        <button class="report-card" data-report="stock-summary">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          <span>Stock Summary</span>
+        </button>
+        <button class="report-card" data-report="reorder-alerts">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Reorder Alerts</span>
+        </button>
+        <button class="report-card" data-report="stock-valuation">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <span>Stock Valuation</span>
+        </button>
+        <button class="report-card" data-report="order-summary">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+          <span>Order Summary</span>
+        </button>
+        <button class="report-card" data-report="low-stock">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Low Stock</span>
+        </button>
+        <button class="report-card" data-report="transaction-history">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/></svg>
+          <span>Transaction History</span>
+        </button>
+      </div>
+      <div id="report-output" class="report-output hidden"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Modal</h3>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="modal-cancel">Cancel</button>
+      <button class="btn-primary" id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
